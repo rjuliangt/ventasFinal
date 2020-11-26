@@ -17,6 +17,6 @@ class DetalleDeVenta(models.Model):
     modificado = models.DateTimeField(auto_now=True)
 
     def delete(self, *args):
-        self.active = False
+        self.activo = False
         self.save()
         return True

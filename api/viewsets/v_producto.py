@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from api.models import Producto
 from api.serializers import ProductoCreateSerializer, ProductoReadSerializer, ProductoSerializer
 
+
 class ProductoViewset(viewsets.ModelViewSet):
     queryset = Producto.objects.filter(activo=True)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
@@ -37,6 +38,23 @@ class ProductoViewset(viewsets.ModelViewSet):
         serializer.is_valid()
         if (intancia):
             print('es valido')
+            return Response({'results': serializer.data}, status=status.HTTP_200_OK)
+
+    def update(self, request, *args, **kwargs):
+        datos_producto = request.data
+        print('dataDatos', datos_producto)
+
+        instancia = Producto.objects.get(pk=datos_producto['id'])
+        instancia.activo = datos_producto['activo']
+        instancia.precio_venta=datos_producto['precio_venta']
+        instancia.precio_compra=datos_producto['precio_compra']
+        instancia.descripcion= datos_producto['descripcion']
+        instancia.existencia=datos_producto['existencia']
+        instancia.nombre=datos_producto['nombre']
+        instancia.save()
+        serializer = ProductoReadSerializer(data=instancia)
+        serializer.is_valid()
+        if (instancia):
             return Response({'results': serializer.data}, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
