@@ -32,7 +32,7 @@ class Acciones extends Component {
         return (
             <div className="d-flex justify-content-center">
                 {ver !== undefined && (
-                    <Link to={`${ver}/${id}/`} className="px-2">
+                    <Link to={`${ver}/${id}/ver`} className="px-2">
                         <i className="material-icons">remove_red_eye</i>
                     </Link>
                 )}

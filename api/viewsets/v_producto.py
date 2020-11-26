@@ -19,6 +19,26 @@ class ProductoViewset(viewsets.ModelViewSet):
         else:
             return ProductoSerializer
 
+    def create(self, request, *args, **kwargs):
+        usuario = request.user
+        datos_producto = request.data
+        datos_producto['vendedor'] = usuario
+        print('dataDatos', datos_producto)
+        intancia = Producto.objects.get_or_create(
+                            activo=datos_producto['activo'],
+                            vendedor=datos_producto['vendedor'],
+                            precio_venta=datos_producto['precio_venta'],
+                            precio_compra=datos_producto['precio_compra'],
+                            descripcion= datos_producto['descripcion'],
+                            existencia=datos_producto['existencia'],
+                            nombre=datos_producto['nombre']
+                        )
+        serializer = ProductoReadSerializer(data=intancia)
+        serializer.is_valid()
+        if (intancia):
+            print('es valido')
+            return Response({'results': serializer.data}, status=status.HTTP_200_OK)
+
     @action(methods=['get'], detail=False)
     def productoCliente(self, request, *args, **kwargs):
         data = request.user

@@ -13,6 +13,7 @@ export const renderField = ({
     placeholder,
     type,
     meta: { touched, error },
+    disabled,
 }) => {
     const invalid = touched && error;
     return (
@@ -24,6 +25,7 @@ export const renderField = ({
                 className={classNames('form-control', {
                     'is-invalid': invalid,
                 })}
+                disabled={disabled}
             />
             {invalid && <div className="invalid-feedback">{error}</div>}
         </div>
@@ -61,6 +63,7 @@ export const renderNumber = ({
     prefix = '',
     suffix = '',
     numberFormat,
+    disabled,
 }) => {
     const invalid = touched && error;
     return (
@@ -76,7 +79,8 @@ export const renderNumber = ({
                 value={input.value}
                 thousandSeparator
                 prefix={prefix}
-                suffix={suffix}
+                suffix={ suffix }
+                disabled={disabled}
                 onValueChange={(values) => {
                     input.onChange(values.value);
                 }}
@@ -91,6 +95,7 @@ export const renderCurrency = ({
     meta: { touched, error },
     prefix = 'Q ',
     placeholder,
+    disabled,
 }) => {
     const invalid = touched && error;
     return (
@@ -108,6 +113,7 @@ export const renderCurrency = ({
                 onValueChange={(values) => {
                     input.onChange(values.value);
                 }}
+                disabled={disabled}
             />
             {invalid && <div className="invalid-feedback">{error}</div>}
         </div>

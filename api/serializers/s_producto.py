@@ -15,8 +15,10 @@ class ProductoCreateSerializer(serializers.ModelSerializer):
             'nombre',
             'descripcion',
             'precio_compra',
+            'precio_venta',
             'vendedor',
-            'existencia'
+            'existencia',
+            'activo'
         )
 
 
@@ -30,6 +32,7 @@ class ProductoReadSerializer(serializers.ModelSerializer):
             'nombre',
             'descripcion',
             'precio_compra',
+            'precio_venta',
             'vendedor',
             'existencia'
         )

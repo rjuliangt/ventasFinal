@@ -4,6 +4,8 @@ import { NotificationContainer } from 'react-notifications';
 
 import { Login, Profile, Registro } from './common/components/LoginRegister';
 import Demo from './common/components/Demo/Demo';
+import Producto from './common/components/Producto/ProductoCrearContainer';
+import ProductoListar from './common/components/Producto/ListarProductoContainer';
 import ProtectedRoute from './ProtectedRoute';
 import Examples from './common/components/Examples/Basic';
 import NotFound from './common/components/layout/NotFound/NotFound';
@@ -24,6 +26,13 @@ module.exports = (
             <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/registro" component={Registro} />
+                <ProtectedRoute exact path="/" component={ Demo } />
+                {/* Ruutas para ver, crear, actualizar y listar producto */}
+                <ProtectedRoute exact path="/producto" component={ProductoListar} />
+                <ProtectedRoute exact path="/producto/:id/ver" component={Producto} />
+                <ProtectedRoute exact path="/producto/:id/editar" component={Producto} />
+                <ProtectedRoute exact path="/producto/crear" component={Producto} />
+                <ProtectedRoute exact path="/page2" component={Examples} />
                 <ProtectedRoute exact path="/" component={Demo} />
                 <ProtectedRoute exact path="/page2" component={Examples} />
                 <ProtectedRoute
