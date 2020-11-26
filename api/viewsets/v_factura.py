@@ -7,8 +7,8 @@ from api.serializers import FacturaSerializer, FacturaReadSerializer, FacturaCre
 class FacturaViewset(viewsets.ModelViewSet):
     queryset = Factura.objects.filter(activo=True)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    filter_fields = ("vendedor__first_name", "vendedor__first_name")
-    search_fields = ("vendedor__first_name", "vendedor__first_name")
+    filter_fields = ("comprador__first_name", "direccion")
+    search_fields = ("comprador__first_name", "direccion")
     ordering_fields = ("creado")
 
     def get_serializer_class(self):
