@@ -26,4 +26,4 @@ class ProductoViewset(viewsets.ModelViewSet):
         idVendedor = data.id
         query = Producto.objects.filter(activo=True, vendedor=idVendedor)
         serializer = ProductoReadSerializer(data=query, many=True)
-         return Response({'results': serializer.data}, status=status.HTTP_200_OK)
+        return Response({'results': serializer.data}, status=status.HTTP_200_OK)
