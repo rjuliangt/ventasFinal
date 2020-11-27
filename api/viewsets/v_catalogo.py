@@ -8,7 +8,7 @@ from rest_framework.decorators import action
 from rest_framework import permissions, exceptions
 
 class CatalogoViewset(viewsets.ModelViewSet):
-    queryset = Producto.objects.filter(activo=True)
+    queryset = Producto.objects.filter(activo=True, existencia__gt=0)
     # print(self)
     # print(get__)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
@@ -19,7 +19,7 @@ class CatalogoViewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         if self.request.user and self.action == 'list':
-            return Producto.objects.filter(activo=True).exclude(vendedor__id=self.request.user.id)
+            return Producto.objects.filter(activo=True,existencia__gt=0).exclude(vendedor__id=self.request.user.id)
         else:
             return Producto.objects.filter(activo=True)
 

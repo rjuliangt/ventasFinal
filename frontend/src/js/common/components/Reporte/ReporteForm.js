@@ -102,6 +102,9 @@ class ReporteListar extends Component {
                         <TableHeaderColumn dataField="cantidad_vendido" dataSort>
                             Cantidad vendido
                         </TableHeaderColumn>
+                        <TableHeaderColumn dataField="precio" dataFormat={ priceFormatter } dataSort>
+                            Precio 
+                        </TableHeaderColumn>
                         <TableHeaderColumn dataField="total_ganado" dataFormat={ priceFormatter } dataSort>
                             Total en moneda
                         </TableHeaderColumn>

@@ -50,6 +50,7 @@ class ReporteriaViewSet(GenericViewSet):
             datos_productos['id_producto'] = mi_producto.pk
             datos_productos['descripcion'] = mi_producto.descripcion
             datos_productos['existencia'] = mi_producto.existencia
+            datos_productos['precio'] = mi_producto.precio_venta
             reporte.append(datos_productos)
         print('consulta: ',reporte)
         return Response({'results': reporte}, status=status.HTTP_200_OK)

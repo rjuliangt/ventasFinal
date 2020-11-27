@@ -143,7 +143,7 @@ export default reduxForm({
             direccion : validators.exists()('Este campo es requerido'),
             nombre : validators.exists()('Este campo es requerido'),
             cantidad: validators.exists()( 'Este campo es requerido' ),
-            // subtotal:  * precio_venta,
+            nit: validators.exists()( 'Este campo es requerido' ),
         });
     },
 })(ComprarForm);
