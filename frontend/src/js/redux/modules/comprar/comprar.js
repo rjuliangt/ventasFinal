@@ -12,8 +12,9 @@ const setLoader = (loader)=>( {
 } )
 
 const getDatosProducto = (id) => ( dispatch ) => {
-    dispatch(setLoader(true))
-    api.get(`catalogo/detalleProducto/?id=${id}`)
+    dispatch( setLoader( true ) )
+    console.log('el id', id)
+    api.get(`${'catalogo/detalleProducto'}/?id=${id}`)
         .then( ( response ) => {
         console.log('response: ', response)
             dispatch( { type: SET_FORM_COMPRAR, data: response.results[0] } );

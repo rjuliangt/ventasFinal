@@ -20,6 +20,17 @@ class ReporteriaViewSet(GenericViewSet):
     search_fields = ("nombre", "vendedor__first_name")
     ordering_fields = ("creado")
 
+    def get_queryset(self):
+        if self.request.user and self.action == 'list':
+            return Producto.objects.filter(activo=True).exclude(vendedor__id=self.request.user.id)
+        else:
+            return Producto.objects.filter(activo=True)
+    def create(self, request):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+    def update(self, request):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
     @action(methods=["get"], detail=False)
     def ventasPorProducto(self, request, *args, **kwargs):
         usuario = request.user.id

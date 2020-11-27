@@ -1,10 +1,19 @@
 import React from "react";
 import { reduxForm } from "redux-form";
 import './style.css';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Catalogo = (props) => {
-    const { data, loader, match } = props;
+    const {
+            data,
+            loader,
+            searchChange,
+            onSortChange,
+            listar,
+            page,
+            match,
+        } = props;
     console.log('datos catalogo', data)
     console.log('loader catalogo', loader)
     return (
@@ -12,6 +21,28 @@ const Catalogo = (props) => {
         <div className="blue-gradient-bg2">
             <div className="sticky d-flex">
                 <h2 className="text-center w-100 font-weight-bold text-white pt-3">Catalogo</h2>
+                <div className="d-flex flex-row w-50 align-items-center justify-content-end">
+                        <div className="flex-fill d-flex align-items-center ml-3">
+                            <input
+                                type="text"
+                                className="form-control"
+                                onChange={(e) => searchChange(e.target.value)}
+                                placeholder="Buscar por nombre o descripcion"
+                                style={{
+                                    border: "2px solid #E5E5E5",
+                                    borderRadius: "12px",
+                                    paddingRight: "35px",
+                                }}
+                            />
+                            <FontAwesomeIcon
+                                icon={faSearch}
+                                className="icono color-4AC"
+                                style={{
+                                    marginLeft: -35,
+                                }}
+                            />
+                    </div>
+                 </div>   
                 { match.url == '/catalogo' ? ( 
                     <React.Fragment>
                         <a href={`/#/login`} className="btn btn-primary font-weight-bold text-white justifiy-content-end m-3">Iniciar sesi&oacute;n</a>
@@ -28,7 +59,8 @@ const Catalogo = (props) => {
                             <div className="card-body py-2">
                                 <h5 className="card-title my-1 font-weight-bold">{ producto.nombre }</h5>
                                 <p className="card-text my-1">{producto.descripcion}</p>
-                                <p className="card-text my-1">{ 'Precio Q. ' + producto.precio_venta}</p>
+                                <p className="card-text my-1">{ 'Precio Q. ' + producto.precio_venta  + '  ' +' Exis. ' + producto.existencia}</p>
+                                <p className="card-text my-1">{ 'De: ' + producto.vendedor.nombre }</p>
                             </div>
                             <div className="card-footer text-center m-1 py-2">
                                 { match.url == '/' ? (

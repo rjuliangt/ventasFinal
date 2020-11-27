@@ -9,5 +9,6 @@ div.sticky {
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
+    z-index: 1;
     background-color: rgba(19, 19, 19, 0.678);
 }

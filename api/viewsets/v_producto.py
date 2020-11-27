@@ -3,6 +3,8 @@ from rest_framework import status, filters, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from api.models import Producto
+from django.contrib.auth.models import User
+
 from api.serializers import ProductoCreateSerializer, ProductoReadSerializer, ProductoSerializer
 
 
@@ -12,6 +14,12 @@ class ProductoViewset(viewsets.ModelViewSet):
     filter_fields = ("nombre", "descripcion", "vendedor__first_name")
     search_fields = ("nombre", "descripcion", "vendedor__first_name")
     ordering_fields = ("creado")
+    
+    def get_queryset(self):
+        if self.request.user and self.action == 'list':
+            return Producto.objects.filter(activo=True, vendedor__id=self.request.user.id)
+        else:
+            return Producto.objects.filter(activo=True)
 
     def get_serializer_class(self):
         """Definiendo serializer para API"""
@@ -23,11 +31,12 @@ class ProductoViewset(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         usuario = request.user
         datos_producto = request.data
-        datos_producto['vendedor'] = usuario
+        vendedor = User.objects.get(pk=usuario.pk)
+        # datos_producto['vendedor'] = usuario
         print('dataDatos', datos_producto)
         intancia = Producto.objects.get_or_create(
-                            activo=datos_producto['activo'],
-                            vendedor=datos_producto['vendedor'],
+                            activo=True,
+                            vendedor=vendedor,
                             precio_venta=datos_producto['precio_venta'],
                             precio_compra=datos_producto['precio_compra'],
                             descripcion= datos_producto['descripcion'],
@@ -60,8 +69,14 @@ class ProductoViewset(viewsets.ModelViewSet):
     @action(methods=['get'], detail=False)
     def productoCliente(self, request, *args, **kwargs):
         data = request.user
-        print('usuario', data)
         idVendedor = data.id
-        query = Producto.objects.filter(activo=True, vendedor=idVendedor)
-        serializer = ProductoReadSerializer(data=query, many=True)
+        queryset = Producto.objects.filter(activo=True, vendedor=idVendedor)
+        filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+        filter_fields = ("nombre", "descripcion", "vendedor__first_name")
+        search_fields = ("nombre", "descripcion", "vendedor__first_name")
+        ordering_fields = ("creado")
+        # ProductoReadSerializer
+        print('usuario', data)
+        serializer = ProductoReadSerializer(data=queryset, many=True)
+        serializer.is_valid()
         return Response({'results': serializer.data}, status=status.HTTP_200_OK)
