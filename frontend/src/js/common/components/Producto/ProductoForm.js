@@ -74,6 +74,7 @@ const ProductoForm = (props) => {
                         <label htmlFor="activo" className="font-weight-bold">Estado </label>
                         <Field
                             name="activo"
+                            label="activo"
                             component={renderSwitch}
                             className="form-control"
                             disabled={ver}

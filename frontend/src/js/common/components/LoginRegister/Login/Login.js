@@ -24,6 +24,7 @@ class Login extends Component {
                 <div className="d-flex flex-column align-items-center pt-3 bienvenida">
                     <h1 className="text-center">Bienvenido</h1>
                     <p>Página de login</p>
+                    <a href={ `/#/catalogo` } className="btn btn-success m-0">catalogo</a>
                 </div>
                 <br />
                 <div className="login-wrapper">

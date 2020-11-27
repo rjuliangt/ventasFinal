@@ -4,10 +4,10 @@ from rest_framework import status, filters
 from rest_framework.viewsets import GenericViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 
-from django.db.models import Count, When, Sum, Q
+from django.db.models import Count, When, Sum, Q, Avg
 
 # Importacion de los modelos a usar en el reporte
-from api.models import Producto, DetalleDeVenta
+from api.models import Producto, DetalleDeVenta, Factura
 
 # importacion de serializer
 from api.serializers import ProductoReadSerializer, ReporteProductoSerializer
@@ -23,18 +23,54 @@ class ReporteriaViewSet(GenericViewSet):
     @action(methods=["get"], detail=False)
     def ventasPorProducto(self, request, *args, **kwargs):
         usuario = request.user.id
+        print('USUARIO: ', usuario)
 
-        datos_productos = DetalleDeVenta.objects.filter(
+        producto_usuario = Producto.objects.filter(activo=True, vendedor=usuario)
+        reporte = []
+        for mi_producto in producto_usuario:
+            datos_productos = DetalleDeVenta.objects.filter(
+                                                activo=True,
+                                                producto__id=mi_producto.pk
+                                                ).aggregate(
+                                                        cantidad_vendido=Sum('cantidad'),
+                                                        total_ganado=Sum('subtotal'),
+                                                    )
+            datos_productos['nombre'] = mi_producto.nombre
+            datos_productos['id_producto'] = mi_producto.pk
+            datos_productos['descripcion'] = mi_producto.descripcion
+            datos_productos['existencia'] = mi_producto.existencia
+            reporte.append(datos_productos)
+        print('consulta: ',reporte)
+        return Response({'results': reporte}, status=status.HTTP_200_OK)
+
+
+    @action(methods=["get"], detail=False)
+    def ventasGlobal(self, request, *args, **kwargs):
+        usuario = request.user.id
+        print('USUARIO: ', usuario)
+
+        reporte = Producto.objects.filter(
                                             activo=True,
-                                            producto__vendedor=usuario
-                                            ).aggregate(
-                                                    cantidad_vendido=Sum('cantidad'),
-                                                    total_ganado=Sum('subtotal'),
-                                                ).values()
-        # .values('producto__nombre','producto__precio_venta',
-        #                                                 'producto__descripcion', 'producto__existensia',
-        #                                                 'cantidad_vendido', 'total_ganado'
-        #                                                 )
-        print('consulta: ',datos_productos)
-        serializer = ReporteProductoSerializer(datos_productos, many=True)
-        return Response({'results': serializer.data}, status=status.HTTP_200_OK)
+                                            vendedor=usuario,
+                                        ).aggregate(
+                                                    novendido=Sum('existencia'),
+                                                    vendidos=Sum('producto_detalle__cantidad'),
+                                                    ganado=Sum('producto_detalle__subtotal'),
+                                                )
+        print('consulta: ',reporte)
+        return Response({'results': reporte}, status=status.HTTP_200_OK)
+    
+
+    @action(methods=["get"], detail=False)
+    def precioPromedio(self, request, *args, **kwargs):
+        usuario = request.user.id
+        print('USUARIO: ', usuario)
+        reporte = Producto.objects.filter(
+                                            activo=True,
+                                            vendedor=usuario,
+                                        ).aggregate(
+                                                    promedio=Avg('precio_venta'),
+                                                    noproductos=Count('nombre')
+                                                )
+        print('consulta: ',reporte)
+        return Response({'results': reporte}, status=status.HTTP_200_OK)

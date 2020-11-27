@@ -44,12 +44,12 @@ class SideBar extends Component {
                                 activeClassName={'active'}
                             >
                                 <div className="d-inline-block item-icon-wrapper">
-                                    <i className="material-icons">edit</i>
+                                    <i className="material-icons">local_grocery_store</i>
                                 </div>
-                                <span>Home</span>
+                                <span>Catalogo</span>
                             </NavLink>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <NavLink
                                 to="/page2"
                                 className="nav-link"
@@ -62,7 +62,7 @@ class SideBar extends Component {
                                 </div>
                                 <span>Basic components</span>
                             </NavLink>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <NavLink
                                 to="/producto"
@@ -77,7 +77,7 @@ class SideBar extends Component {
                                 <span>Productos</span>
                             </NavLink>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <NavLink
                                 to="/comprar/crear"
                                 className="nav-link"
@@ -90,7 +90,7 @@ class SideBar extends Component {
                                 </div>
                                 <span>Comprar</span>
                             </NavLink>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <NavLink
                                 to="/reporte"
@@ -105,7 +105,7 @@ class SideBar extends Component {
                                 <span>Reporte</span>
                             </NavLink>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <NavLink
                                 to="/grids"
                                 className="nav-link"
@@ -158,7 +158,7 @@ class SideBar extends Component {
                                 </div>
                                 <span>Log Out</span>
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </aside>

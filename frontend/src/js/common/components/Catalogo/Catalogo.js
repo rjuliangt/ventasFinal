@@ -3,17 +3,24 @@ import Catalogo from "./CatalogoListar";
 
 class CrearCompra extends Component {
     componentWillMount = () => {
-        const { getCatalogo } = this.props;
-        getCatalogo()
+        const { match, getCatalogo, getOtrosCatalogos } = this.props;
+        if ( match.url == '/' ) {
+            getOtrosCatalogos()
+        } 
+        if ( match.url == '/catalogo' ) {
+            getCatalogo()
+        } 
+        
     };
     render() {
-        const { data, loader } = this.props;
+        const { data, loader, match } = this.props;
         console.log("los props de mi catalogo", this.props);
         return (
             <div className="d-flex flex-column w-100">
                 <Catalogo
                     data={ data }
-                    loader={loader}
+                    loader={ loader }
+                    match={match}
                 />
             </div>
         );

@@ -3,12 +3,22 @@ import { TableHeaderColumn } from "react-bootstrap-table";
 import Grid from "../Utils/Grid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { reduxForm } from "redux-form";
-
+import {  reduxForm } from "redux-form";
+// import {
+//      RadialChart
+// } from 'react-vis'; 
+import {
+     XYPlot,
+     XAxis,
+     YAxis,
+     VerticalBarSeries
+} from 'react-vis'; 
 
 class ReporteListar extends Component {
     componentWillMount = () => {
-        this.props.listar();
+        this.props.getDataGrafica();
+        this.props.getDataPromedio();
+        this.props.getVentasPorProducto();
     };
     
     render() {
@@ -18,12 +28,10 @@ class ReporteListar extends Component {
         const {
             data,
             loader,
-            searchChange,
-            onSortChange,
-            listar,
-            page,
+            datosGrafica,
+            datosPromedio,
         } = this.props;
-
+        console.log('grafica ',datosGrafica)
         return (
             <div className="d-flex flex-column w-100 px-3">
                 <div className="page-header pl-1 pt-3 no-gutters row">
@@ -71,39 +79,98 @@ class ReporteListar extends Component {
                         </div>
                     </div>
                 </div>
-                <Grid
-                    data={data}
-                    loading={loader}
-                    onPageChange={listar}
-                    page={page}
-                    onSortChange={ onSortChange }
-                    className="table table-striped"
-                >
-                    <TableHeaderColumn isKey dataField="producto__nombre" dataSort>
-                        Nombre
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField="producto__descripcion" dataSort>
-                        Descripcion
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField="producto__precio_venta" dataFormat={ priceFormatter } dataSort>
-                        Precio de venta
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField="producto__existensia"  dataSort>
-                        Existencia
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField="cantidad_vendido" dataSort>
-                        Cantidad vendido
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField="total_ganado" dataFormat={ priceFormatter } dataSort>
-                        Total en moneda
-                    </TableHeaderColumn>
-                </Grid>
+                { data ? (
+                    <Grid
+                        data={data}
+                        loading={loader}
+                        // onPageChange={listar}
+                        page={null}
+                        className="table table-striped"
+                    >
+                        <TableHeaderColumn isKey dataField="nombre" dataSort>
+                            Nombre
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField="descripcion" dataSort>
+                            Descripcion
+                        </TableHeaderColumn>
+                        {/* <TableHeaderColumn dataField="producto__precio_venta" dataFormat={ priceFormatter } dataSort>
+                            Precio de venta
+                        </TableHeaderColumn> */}
+                        <TableHeaderColumn dataField="existencia"  dataSort>
+                            Existencia
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField="cantidad_vendido" dataSort>
+                            Cantidad vendido
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField="total_ganado" dataFormat={ priceFormatter } dataSort>
+                            Total en moneda
+                        </TableHeaderColumn>
+                    </Grid>
+                ): null}
+                <div className="d-flex justify-content-between">
+                    <div className="form-group has-feedback my-1 ml-3 text-center font-weight-bold w-50">
+                        { datosGrafica ? (
+                            <React.Fragment>
+                                <label htmlFor="last_name" className="font-weight-bold text-center">Total facturado Q. { datosGrafica.ganado}</label>
+                                
+                                <XYPlot
+                                    xType="ordinal"
+                                    width={300}
+                                    height={ 300 }
+                                >
+                                    <VerticalBarSeries
+                                        className="vertical-bar-series-example"
+                                        color={'red','yellow'}
+                                        data={ [
+                                            {x: `${datosGrafica.vendidos} vendido`, y: 0 + datosGrafica.vendidos, color: "red"},
+                                            {x: `${datosGrafica.novendido} no vendido`, y: 0 + datosGrafica.novendido, color: "yellow"}
+                                        ] }
+                                    />
+                                    <XAxis style={{
+                                             line: {stroke: "0c0c9e"},
+                                             ticks: {stroke: '#ADDDE1'},
+                                             text: {stroke: 'none', fill: '#ff4f00', fontWeight: 600}
+                                             } }
+                                             marginTop={ 20 }
+                                             marginLeft={40}/>
+                                    <YAxis style={{
+                                             line: {stroke: "0c0c9e"},
+                                             ticks: {stroke: '#ADDDE1'},
+                                             text: { stroke: '#0c0c9e', fill: '#0c0c9e', fontWeight: 600 }
+                                        } }
+                                             marginLeft={ 35 }
+                                             marginRight={ 0 }
+                                             className={'ml-2'}/>
+                                </XYPlot>
+
+                                
+                            </React.Fragment>
+                        ): null }
+                    </div>
+                    <div className="form-group has-feedback my-1 ml-3 text-center font-weight-bold w-50">
+                        <label htmlFor="last_name" className="font-weight-bold text-center">Precio Promedio</label>
+                        { datosPromedio ? (
+                            <div className="text-center ">
+                                <h3>
+                                    { 'Q.' + datosPromedio.promedio}
+                                </h3>
+                            </div>
+                        ): null }
+                        <label htmlFor="last_name" className="font-weight-bold text-center mt-5">Productos Activos</label>
+                        { datosPromedio ? (
+                            <div className="text-center ">
+                                <h3>
+                                    { datosPromedio.noproductos}
+                                </h3>
+                            </div>
+                        ): null }
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
-export default ReporteListar;
 export default reduxForm({
     form: 'reporteForm', // a unique identifier for this form
 })(ReporteListar);

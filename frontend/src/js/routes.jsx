@@ -33,7 +33,7 @@ module.exports = (
                 <Route exact path="/registro" component={Registro} />
                 <Route exact path="/catalogo" component={Catalogo} />
                 <Route exact path="/decatalogo/:id/comprar" component={Comprar} />
-                <ProtectedRoute exact path="/" component={ Demo } />
+                <ProtectedRoute exact path="/" component={ Catalogo } />
                 {/* Ruutas para ver, crear, actualizar y listar producto */}
                 <ProtectedRoute exact path="/producto" component={ProductoListar} />
                 <ProtectedRoute exact path="/producto/:id/ver" component={Producto} />
@@ -47,7 +47,8 @@ module.exports = (
                 {/* <ProtectedRoute exact path="/comprar" component={ProductoListar} />
                 <ProtectedRoute exact path="/comprar/:id/ver" component={Comprar} />
                 <ProtectedRoute exact path="/comprar/:id/editar" component={Comprar} />*/}
-                <ProtectedRoute exact path="/comprar/crear" component={ Comprar } /> 
+                {/* <ProtectedRoute exact path="/comprar/crear" component={ Comprar } />  */}
+                <ProtectedRoute exact path="/comprar/:id/comprar" component={ Comprar } /> 
                 
                 <ProtectedRoute exact path="/page2" component={Examples} />
                 <ProtectedRoute exact path="/" component={Demo} />

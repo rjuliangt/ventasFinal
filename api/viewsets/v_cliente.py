@@ -2,7 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, filters, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated , AllowAny
 
 from api.models import Cliente
 from api.serializers import ClienteSerializer, ClienteCrearSerializer
@@ -23,3 +23,13 @@ class ClienteViewset(viewsets.ModelViewSet):
             return ClienteSerializer
         else:
             return ClienteCrearSerializer
+
+    def get_permissions(self):
+        """" Define permisos para este recurso """
+        if self.action == "list" or self.action == "retrive":
+            permission_classes = [IsAuthenticated]
+        elif self.action == "create":
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]

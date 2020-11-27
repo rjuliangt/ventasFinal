@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Factura
+from api.models import Factura, Producto
 
 
 class FacturaSerializer(serializers.ModelSerializer):
@@ -15,6 +15,16 @@ class FacturaCreateSerializer(serializers.ModelSerializer):
             'fecha',
             'total',
             'comprador',
+        )
+
+class FacturaCreateCompraSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Producto
+        fields = (
+            'id',
+            'nombre',
+            'descripcion',
+            'existencia'
         )
 
 

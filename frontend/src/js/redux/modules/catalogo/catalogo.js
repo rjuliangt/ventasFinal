@@ -25,6 +25,22 @@ const getCatalogo = () => ( dispatch, getStore ) => {
     });
 }
 
+const getOtrosCatalogos = () => ( dispatch, getStore ) => {
+    dispatch(setLoader(true))
+
+    api.get('catalogo/catalogoDeOtrosVendedores')
+        .then( ( response ) => {
+        console.log('response', response)
+        dispatch({type:SET_DATA_CATALOGO, data:response});
+    })
+    .catch(() => {
+      
+    })
+    .finally(() => {
+        dispatch(setLoader(false))
+    });
+}
+
 
 export const reducers = {
     [SET_DATA_CATALOGO]: (state, { data }) => {
@@ -45,6 +61,7 @@ export const reducers = {
    
 export const actions = {
     getCatalogo,
+    getOtrosCatalogos,
 };
 
 export const initialState = {

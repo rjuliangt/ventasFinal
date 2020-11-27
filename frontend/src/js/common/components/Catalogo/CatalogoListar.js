@@ -4,16 +4,20 @@ import './style.css';
 
 
 const Catalogo = (props) => {
-    const { data, loader } = props;
+    const { data, loader, match } = props;
     console.log('datos catalogo', data)
     console.log('loader catalogo', loader)
     return (
         
-        <div className="blue-gradient-bg">
+        <div className="blue-gradient-bg2">
             <div className="sticky d-flex">
                 <h2 className="text-center w-100 font-weight-bold text-white pt-3">Catalogo</h2>
-                <a href={`/#/login`} className="btn btn-primary font-weight-bold text-white justifiy-content-end m-3">Iniciar sesi&oacute;n</a>
-                <a href={`/#/registro`} className="btn btn-warning font-weight-bold text-white justifiy-content-end m-3">Registrarse</a>
+                { match.url == '/catalogo' ? ( 
+                    <React.Fragment>
+                        <a href={`/#/login`} className="btn btn-primary font-weight-bold text-white justifiy-content-end m-3">Iniciar sesi&oacute;n</a>
+                        <a href={ `/#/registro` } className="btn btn-warning font-weight-bold text-white justifiy-content-end m-3">Registrarse</a>
+                    </React.Fragment>
+                ):null}
                 
             </div>
             { data && data.results? (
@@ -27,7 +31,11 @@ const Catalogo = (props) => {
                                 <p className="card-text my-1">{ 'Precio Q. ' + producto.precio_venta}</p>
                             </div>
                             <div className="card-footer text-center m-1 py-2">
-                                <a href={`/#/decatalogo/${producto.id}/comprar`} className="btn btn-success">comprar</a>
+                                { match.url == '/' ? (
+                                    <a href={ `/#/comprar/${ producto.id }/comprar` } className="btn btn-success">comprar</a>
+                                ) : (
+                                    <a href={ `/#/decatalogo/${ producto.id }/comprar` } className="btn btn-success">comprar</a>
+                                ) }
                             </div>
                         </div>
                     ) ) }
