@@ -11,7 +11,6 @@ class Profile(models.Model):
         (MALE, 'MALE'),
         (FEMALE, 'FEMALE')
     )
-
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     avatar = models.ImageField(upload_to='Avatar', null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)

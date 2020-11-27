@@ -80,7 +80,7 @@ class PrivateRouteBase extends Component {
                     ) : (
                         <Redirect
                             to={{
-                                pathname: '/login',
+                                pathname: '/inicio',
                                 state: { from: props.location },
                             }}
                         />

@@ -87,6 +87,9 @@
         "webpack-s3-plugin": "^1.0.0-rc.0"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.32",
+        "@fortawesome/free-solid-svg-icons": "^5.15.1",
+        "@fortawesome/react-fontawesome": "^0.1.13",
         "bootstrap": "^4.3.1",
         "classnames": "^2.2.6",
         "font-awesome": "^4.7.0",
@@ -113,6 +116,7 @@
         "react-router-redux": "^4.0.8",
         "react-select": "^2.4.4",
         "react-switch": "^3.0.4",
+        "react-vis": "^1.11.7",
         "reactstrap": "^8.0.0",
         "redux": "^4.0.1",
         "redux-actions": "^2.6.3",

@@ -1,0 +1,14 @@
+.blue-gradient-bg2{
+    min-height: 100vh;
+    background: #ffc400e5;
+    background: linear-gradient(to right, #5ce600e3, #3ac1ff);
+    padding: 5px;
+}
+
+div.sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: rgba(19, 19, 19, 0.678);
+}

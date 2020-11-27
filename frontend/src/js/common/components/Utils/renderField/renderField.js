@@ -13,6 +13,7 @@ export const renderField = ({
     placeholder,
     type,
     meta: { touched, error },
+    disabled,
 }) => {
     const invalid = touched && error;
     return (
@@ -21,9 +22,10 @@ export const renderField = ({
                 {...input}
                 placeholder={placeholder}
                 type={type}
-                className={classNames('form-control', {
+                className={classNames('form-control input-sm', {
                     'is-invalid': invalid,
                 })}
+                disabled={disabled}
             />
             {invalid && <div className="invalid-feedback">{error}</div>}
         </div>
@@ -44,7 +46,7 @@ export const renderTextArea = ({
                 placeholder={placeholder}
                 style={{ resize: 'none' }}
                 rows={rows || 3}
-                className={classNames('form-control', {
+                className={classNames('form-control input-sm', {
                     'is-invalid': invalid,
                 })}
             />
@@ -61,13 +63,14 @@ export const renderNumber = ({
     prefix = '',
     suffix = '',
     numberFormat,
+    disabled,
 }) => {
     const invalid = touched && error;
     return (
         <div>
             <NumberFormat
                 placeholder={placeholder}
-                className={classNames('form-control', {
+                className={classNames('form-control input-sm', {
                     'is-invalid': invalid,
                 })}
                 decimalScale={decimalScale || 0}
@@ -76,7 +79,8 @@ export const renderNumber = ({
                 value={input.value}
                 thousandSeparator
                 prefix={prefix}
-                suffix={suffix}
+                suffix={ suffix }
+                disabled={disabled}
                 onValueChange={(values) => {
                     input.onChange(values.value);
                 }}
@@ -91,12 +95,13 @@ export const renderCurrency = ({
     meta: { touched, error },
     prefix = 'Q ',
     placeholder,
+    disabled,
 }) => {
     const invalid = touched && error;
     return (
         <div>
             <NumberFormat
-                className={classNames('form-control', {
+                className={classNames('form-control input-sm', {
                     'is-invalid': invalid,
                 })}
                 decimalScale={2}
@@ -108,6 +113,7 @@ export const renderCurrency = ({
                 onValueChange={(values) => {
                     input.onChange(values.value);
                 }}
+                disabled={disabled}
             />
             {invalid && <div className="invalid-feedback">{error}</div>}
         </div>
@@ -125,8 +131,8 @@ export const renderSwitch = ({
         <div className="d-flex align-items-center">
             <Switch
                 onColor="#007bff"
-                height={18}
-                width={36}
+                height={20}
+                width={40}
                 disabled={disabled}
                 onChange={(value) => {
                     input.onChange(value);

@@ -21,11 +21,10 @@ class Registro extends Component {
         return (
             <div className="blue-gradient-bg">
                 <div className="d-flex flex-column align-items-center pt-3 bienvenida">
-                    <h1 className="text-center">Bienvenido a CianStarter</h1>
                     <p>Página de registro</p>
+                    <a href={`/#/catalogo`} className="btn btn-success">catalogo</a>
                 </div>
-                <br />
-                <div className="login-wrapper">
+                <div className="login-wrapper mt-0">
                     <div className="card card-login col-lg-3 col-md-4 col-11">
                         <h5 className="text-center pv">REGISTRO</h5>
                         <LoadMask loading={loader} light>
