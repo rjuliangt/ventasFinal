@@ -5,6 +5,9 @@ import { NotificationContainer } from 'react-notifications';
 import { Login, Profile, Registro } from './common/components/LoginRegister';
 import Demo from './common/components/Demo/Demo';
 import Producto from './common/components/Producto/ProductoCrearContainer';
+import Comprar from './common/components/Catalogo/ComprarContainer';
+import Catalogo from './common/components/Catalogo/CatalogoListarContainer';
+import Inicio from './common/components/Inicio/Inicio';
 import ProductoListar from './common/components/Producto/ListarProductoContainer';
 import ProtectedRoute from './ProtectedRoute';
 import Examples from './common/components/Examples/Basic';
@@ -24,14 +27,24 @@ module.exports = (
     <div>
         <div className="container__content">
             <Switch>
+                <Route exact path="/inicio" component={Inicio} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/registro" component={Registro} />
+                <Route exact path="/catalogo" component={Catalogo} />
+                <Route exact path="/decatalogo/:id/comprar" component={Registro} />
                 <ProtectedRoute exact path="/" component={ Demo } />
                 {/* Ruutas para ver, crear, actualizar y listar producto */}
                 <ProtectedRoute exact path="/producto" component={ProductoListar} />
                 <ProtectedRoute exact path="/producto/:id/ver" component={Producto} />
                 <ProtectedRoute exact path="/producto/:id/editar" component={Producto} />
-                <ProtectedRoute exact path="/producto/crear" component={Producto} />
+                <ProtectedRoute exact path="/producto/crear" component={ Producto } />
+                
+                {/* Ruutas para ver, crear, actualizar una compra */}
+                <ProtectedRoute exact path="/comprar" component={ProductoListar} />
+                <ProtectedRoute exact path="/comprar/:id/ver" component={Comprar} />
+                <ProtectedRoute exact path="/comprar/:id/editar" component={Comprar} />
+                <ProtectedRoute exact path="/comprar/crear" component={ Comprar } />
+                
                 <ProtectedRoute exact path="/page2" component={Examples} />
                 <ProtectedRoute exact path="/" component={Demo} />
                 <ProtectedRoute exact path="/page2" component={Examples} />

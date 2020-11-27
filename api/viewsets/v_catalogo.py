@@ -1,6 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, filters, viewsets
-
+from rest_framework.permissions import AllowAny
 from api.models import Producto
 from api.serializers import ProductoReadSerializer, ProductoSerializer
 
@@ -17,3 +17,11 @@ class CatalogoViewset(viewsets.ModelViewSet):
             return ProductoReadSerializer
         else:
             return ProductoSerializer
+
+    def get_permissions(self):
+        """" Define permisos para este recurso """
+        if self.action == "list" or self.action == "token":
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]

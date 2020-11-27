@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import ProductoForm from "./ProductoForm";
+import ComprarForm from "./FormComprar";
 
-class CrearProducto extends Component {
+class CrearCompra extends Component {
     componentWillMount = () => {
         const { match, leer } = this.props;
         if (match.params.id) {
@@ -29,7 +29,7 @@ class CrearProducto extends Component {
         console.log("Crear producto", this.props);
         return (
             <div className="d-flex flex-column w-100">
-                <ProductoForm
+                <ComprarForm
                     onSubmit={funcionEnvio}
                     funcionRegistro={this.props.funcionEnvio}
                     actualizar={match.params.id ? true : false}
@@ -40,4 +40,4 @@ class CrearProducto extends Component {
     }
 }
 
-export default CrearProducto;
+export default CrearCompra;
