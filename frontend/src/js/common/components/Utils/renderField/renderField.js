@@ -22,7 +22,7 @@ export const renderField = ({
                 {...input}
                 placeholder={placeholder}
                 type={type}
-                className={classNames('form-control', {
+                className={classNames('form-control input-sm', {
                     'is-invalid': invalid,
                 })}
                 disabled={disabled}
@@ -46,7 +46,7 @@ export const renderTextArea = ({
                 placeholder={placeholder}
                 style={{ resize: 'none' }}
                 rows={rows || 3}
-                className={classNames('form-control', {
+                className={classNames('form-control input-sm', {
                     'is-invalid': invalid,
                 })}
             />
@@ -70,7 +70,7 @@ export const renderNumber = ({
         <div>
             <NumberFormat
                 placeholder={placeholder}
-                className={classNames('form-control', {
+                className={classNames('form-control input-sm', {
                     'is-invalid': invalid,
                 })}
                 decimalScale={decimalScale || 0}
@@ -101,7 +101,7 @@ export const renderCurrency = ({
     return (
         <div>
             <NumberFormat
-                className={classNames('form-control', {
+                className={classNames('form-control input-sm', {
                     'is-invalid': invalid,
                 })}
                 decimalScale={2}
@@ -131,8 +131,8 @@ export const renderSwitch = ({
         <div className="d-flex align-items-center">
             <Switch
                 onColor="#007bff"
-                height={18}
-                width={36}
+                height={20}
+                width={40}
                 disabled={disabled}
                 onChange={(value) => {
                     input.onChange(value);

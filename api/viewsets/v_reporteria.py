@@ -16,8 +16,8 @@ from api.serializers import ProductoReadSerializer
 class ReporteriaViewSet(GenericViewSet):
     queryset = Producto.objects.filter(activo=True)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    filter_fields = ("nombre", "vendedor__first_name", "nombre")
-    search_fields = ("nombre", "vendedor__first_name", "nombre")
+    filter_fields = ("nombre", "vendedor__first_name")
+    search_fields = ("nombre", "vendedor__first_name")
     ordering_fields = ("creado")
 
     @action(methods=["get"], detail=False)
