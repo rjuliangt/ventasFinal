@@ -14,7 +14,6 @@ class FacturaCreateSerializer(serializers.ModelSerializer):
         fields = (
             'fecha',
             'total',
-            'vendedor',
             'comprador',
         )
 

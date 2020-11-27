@@ -8,6 +8,7 @@ import Producto from './common/components/Producto/ProductoCrearContainer';
 import Comprar from './common/components/Comprar/ComprarContainer';
 import Catalogo from './common/components/Catalogo/CatalogoListarContainer';
 import Inicio from './common/components/Inicio/Inicio';
+import Reporte from './common/components/Reporte/ReporteContainer';
 import ProductoListar from './common/components/Producto/ListarProductoContainer';
 import ProtectedRoute from './ProtectedRoute';
 import Examples from './common/components/Examples/Basic';
@@ -40,10 +41,13 @@ module.exports = (
                 <ProtectedRoute exact path="/producto/crear" component={ Producto } />
                 
                 {/* Ruutas para ver, crear, actualizar una compra */}
+                {/* Rutas para reporteria */ }
+                <ProtectedRoute exact path="/reporte" component={ Reporte } />
+                
                 {/* <ProtectedRoute exact path="/comprar" component={ProductoListar} />
                 <ProtectedRoute exact path="/comprar/:id/ver" component={Comprar} />
                 <ProtectedRoute exact path="/comprar/:id/editar" component={Comprar} />*/}
-                {/* <ProtectedRoute exact path="/comprar/crear" component={ Comprar } />  */}
+                <ProtectedRoute exact path="/comprar/crear" component={ Comprar } /> 
                 
                 <ProtectedRoute exact path="/page2" component={Examples} />
                 <ProtectedRoute exact path="/" component={Demo} />

@@ -13,7 +13,7 @@ class CatalogoViewset(viewsets.ModelViewSet):
     filter_fields = ("nombre", "descripcion")
     search_fields = ("producto", "subtotal")
     ordering_fields = ("producto")
-    permission_classes = (AllowAny,)
+    # permission_classes = (AllowAny,)
 
     def get_serializer_class(self):
         """Definiendo serializer para API"""
@@ -22,15 +22,13 @@ class CatalogoViewset(viewsets.ModelViewSet):
         else:
             return ProductoSerializer
 
-    # def get_permissions(self):
-    #     """" Define permisos para este recurso """
-    #     if self.action == "list" or self.action == "token":
-    #         permission_classes = [AllowAny]
-    #     elif self.action == "get":
-    #         permission_classes = [AllowAny]
-    #     else:
-    #         permission_classes = [IsAuthenticated]
-    #     return [permission() for permission in permission_classes]
+    def get_permissions(self):
+        """" Define permisos para este recurso """
+        if self.action == "list" or self.action == "detalleProducto":
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
 
     @action(methods=["get"], detail=False)
     def detalleProducto(self, request, *args, **kwargs):

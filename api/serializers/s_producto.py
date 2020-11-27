@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Producto
+from api.models import Producto, DetalleDeVenta
 
 
 class ProductoSerializer(serializers.ModelSerializer):
@@ -43,3 +43,20 @@ class ProductoReadSerializer(serializers.ModelSerializer):
                         'id': obj.vendedor.id
                     }
         return None
+
+
+class ReporteProductoSerializer(serializers.ModelSerializer):
+    cantidad_vendido = serializers.IntegerField(default=0)
+    total_ganado = serializers.DecimalField(max_digits=5,decimal_places=2,default=0)
+
+    class Meta:
+        model = DetalleDeVenta
+        fields = (
+            'producto__id',
+            'producto__nombre',
+            'producto__descripcion',
+            'cantidad_vendido',
+            'producto__precio_venta',
+            'producto__existencia',
+            'total_ganado'
+        )

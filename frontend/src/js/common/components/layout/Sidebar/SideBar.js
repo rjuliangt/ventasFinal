@@ -71,7 +71,7 @@ class SideBar extends Component {
                             >
                                 <div className="d-inline-block item-icon-wrapper">
                                     <i className="material-icons">
-                                        local_grocery_store
+                                        add_shopping_cart
                                     </i>
                                 </div>
                                 <span>Productos</span>
@@ -89,6 +89,20 @@ class SideBar extends Component {
                                     </i>
                                 </div>
                                 <span>Comprar</span>
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/reporte"
+                                className="nav-link"
+                                activeClassName={'active'}
+                            >
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i className="material-icons">
+                                        insert_chart_outlined
+                                    </i>
+                                </div>
+                                <span>Reporte</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">

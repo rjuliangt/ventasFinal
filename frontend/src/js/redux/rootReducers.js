@@ -9,6 +9,7 @@ import notificaciones from './modules/notificaciones/notificaciones';
 import producto from './modules/producto/producto';
 import comprar from './modules/comprar/comprar';
 import catalogo from './modules/catalogo/catalogo';
+import reporte from './modules/reporte/reporte';
 
 export default combineReducers({
     form: formReducer,
@@ -21,5 +22,5 @@ export default combineReducers({
     producto,
     comprar,
     catalogo,
-
+    reporte,
 });
